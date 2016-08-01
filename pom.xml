@@ -14,6 +14,7 @@
         <module>java-callback</module>
         <module>java-proxy</module>
         <module>spring-redis</module>
+        <module>webmagic</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -26,6 +27,7 @@
         <!-- spring start -->
         <spring.version>4.2.5.RELEASE</spring.version>
         <spring.redis.version>1.6.0.RELEASE</spring.redis.version>
+        <aspectjweaver.version>1.8.5</aspectjweaver.version>
         <!-- spring end -->
 
         <!-- mybatis start -->
@@ -48,13 +50,15 @@
         <commons.beanutils.version>1.9.2</commons.beanutils.version>
         <commons.codec.version>1.10</commons.codec.version>
         <commons.lang3.version>3.4</commons.lang3.version>
+        <commons.httpclient.version>3.1</commons.httpclient.version>
 
+        <httpclient.version>4.4</httpclient.version>
         <shiro.version>1.2.4</shiro.version>
         <!-- apache end-->
 
         <!-- logging start -->
-        <slf4j.version>1.7.6</slf4j.version>
-        <logback.version>1.1.3</logback.version>
+        <slf4j.version>1.7.21</slf4j.version>
+        <logback.version>1.1.7</logback.version>
         <!-- logging end -->
 
         <!-- alibaba start-->
@@ -66,6 +70,7 @@
         <closure.compiler.version>v20150609</closure.compiler.version>
         <guava.version>18.0</guava.version>
         <findbugs.version>3.0.0</findbugs.version>
+        <zxing.version>3.2.1</zxing.version>
         <!-- google end-->
 
         <!-- redis start-->
@@ -81,7 +86,8 @@
         <quartz.version>2.2.1</quartz.version>
         <freemarker.version>2.3.20</freemarker.version>
         <dom4j.version>1.6.1</dom4j.version>
-        <jdom.version>1.1</jdom.version>
+        <jdom.version>1.1.3</jdom.version>
+        <jaxen.version>1.1.6</jaxen.version>
         <xstream.version>1.4.8</xstream.version>
         <cglib.version>3.1</cglib.version>
         <joda.time.version>2.9.4</joda.time.version>
@@ -89,6 +95,8 @@
         <nutz.version>1.r.56</nutz.version>
         <protostuff.version>1.0.10</protostuff.version>
         <junit4.verion>4.11</junit4.verion>
+        <webmagic.version>0.5.3</webmagic.version>
+        <htmlunit.version>2.15</htmlunit.version>
         <!-- other third end-->
 
         <!-- lmax start-->
@@ -268,6 +276,11 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
             </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-access</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
             <!-- logging end -->
 
             <!-- redis client start -->
@@ -296,6 +309,13 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons.lang3.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>commons-httpclient</groupId>
+                <artifactId>commons-httpclient</artifactId>
+                <version>${commons.httpclient.version}</version>
+            </dependency>
+
             <!-- apache end -->
 
             <!-- java web start -->
@@ -334,14 +354,14 @@
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
-                <version>${httpcomponents.version}</version>
+                <version>${httpclient.version}</version>
             </dependency>
 
             <!-- httpmime -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpmime</artifactId>
-                <version>${httpcomponents.version}</version>
+                <version>${httpclient.version}</version>
             </dependency>
             <!-- http end -->
 
@@ -406,6 +426,14 @@
             </dependency>
             <!-- alibaba end -->
 
+            <!--google start-->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+            <!--google end-->
+
             <!-- other third start-->
             <!-- time util -->
             <dependency>
@@ -454,6 +482,55 @@
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
                 <version>${cglib.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
+            </dependency>
+
+            <!--jdom-->
+            <dependency>
+                <groupId>org.jdom</groupId>
+                <artifactId>jdom</artifactId>
+                <version>${jdom.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jaxen</groupId>
+                <artifactId>jaxen</artifactId>
+                <version>${jaxen.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>us.codecraft</groupId>
+                <artifactId>webmagic-core</artifactId>
+                <version>${webmagic.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>us.codecraft</groupId>
+                <artifactId>webmagic-extension</artifactId>
+                <version>${webmagic.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.htmlunit</groupId>
+                <artifactId>htmlunit</artifactId>
+                <version>${htmlunit.version}</version>
             </dependency>
 
             <!-- junit -->
