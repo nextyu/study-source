@@ -1,6 +1,7 @@
 package com.nextyu.study.webmagic;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
@@ -17,7 +18,10 @@ import java.util.List;
 public class HtmlUnitTest {
     public static void main(String[] args) throws Exception {
         WebClient webClient = new WebClient(BrowserVersion.CHROME);
-        HtmlPage page = webClient.getPage("https://list.tmall.com/search_product.htm?spm=a221y.601495ac9f02c0ce1fb61e4f80f23a71.0.0.URyRHh&cat=50928001&acm=lb-zebra-164294-973296.1003.8.842708&scm=1003.8.lb-zebra-164294-973296.ITEM_14629133791092_842708");
+        HtmlPage page = webClient.getPage("http://music.163.com/#/song?id=5041667");
+        webClient.getOptions().setJavaScriptEnabled(true);
+        webClient.getOptions().setCssEnabled(false);
+        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
         HtmlElement body = page.getBody();
         //System.out.println(body.asXml());
         System.out.println(page.asXml());

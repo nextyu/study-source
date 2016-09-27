@@ -1,23 +1,26 @@
 package com.nextyu.study.httpclient;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,8 +128,8 @@ public class HttpClientTest {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         // 创建 httpGet
         HttpGet httpGet = new HttpGet(requestURL);
-        httpGet.setHeader("Host","");
-        httpGet.setHeader("Cookie","name=value");
+        httpGet.setHeader("Host", "");
+        httpGet.setHeader("Cookie", "name=value");
         // 执行 get 请求
         CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
 
@@ -143,7 +146,7 @@ public class HttpClientTest {
     }
 
     @Test
-    public void testAjax() throws IOException {
+    public void testAjax() throws Exception {
         String requestURL = "http://dev.m.lailaihui.com/member/updateAccount";
         // 创建 httpClient
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -151,7 +154,7 @@ public class HttpClientTest {
         HttpGet httpGet = new HttpGet(requestURL);
         /*httpGet.setHeader("Host","");
         httpGet.setHeader("Cookie","name=value");*/
-        httpGet.setHeader("X-Requested-With","XMLHttpRequest");
+        httpGet.setHeader("X-Requested-With", "XMLHttpRequest");
         for (int i = 0; i < 1000; i++) {
 
             // 执行 get 请求
@@ -168,6 +171,21 @@ public class HttpClientTest {
         // 一般返回的都是 json 格式的，可以使用 alibaba fastjson 解析
         //JSONObject jsonObject = JSON.parseObject(result);
         // JSONObject 里面有个map
+    }
+
+    /**
+     * 发送xml
+     * @throws Exception
+     */
+    @Test
+    public void testSendXml() throws Exception {
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost post = new HttpPost("http://www.baidu.com");
+        String xml = "<xml>xxxx</xml>";
+        HttpEntity entity = new ByteArrayEntity(xml.getBytes("UTF-8"));
+        post.setEntity(entity);
+        HttpResponse response = client.execute(post);
+        String result = EntityUtils.toString(response.getEntity());
     }
 
 }
