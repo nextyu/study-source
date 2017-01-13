@@ -16,6 +16,7 @@
         <module>spring-redis</module>
         <module>webmagic</module>
         <module>java-reflection</module>
+        <module>spring-activemq</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -55,6 +56,9 @@
 
         <httpclient.version>4.4</httpclient.version>
         <shiro.version>1.2.4</shiro.version>
+
+        <activemq.version>5.7.0</activemq.version>
+
         <!-- apache end-->
 
         <!-- logging start -->
@@ -221,6 +225,12 @@
                 <version>${spring.redis.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jms</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
             <!-- spring end -->
 
 
@@ -341,6 +351,12 @@
                 <groupId>commons-httpclient</groupId>
                 <artifactId>commons-httpclient</artifactId>
                 <version>${commons.httpclient.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-core</artifactId>
+                <version>${activemq.version}</version>
             </dependency>
 
             <!-- apache end -->
