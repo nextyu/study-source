@@ -1,5 +1,6 @@
 package com.nextyu.study.activemq;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 消息生产者
@@ -20,7 +22,7 @@ import javax.jms.Session;
  * @author nextyu
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring-*.xml")
+@ContextConfiguration("classpath:spring-activemq-producer.xml")
 public class MessageProducer {
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -30,11 +32,23 @@ public class MessageProducer {
 
     @Test
     public void addMessage() {
-        /*jmsTemplate.send(testQueue, new MessageCreator() {
+        jmsTemplate.send(testQueue, new MessageCreator() {
             @Override
             public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage("我是第一条消息");
+                return session.createTextMessage("我是文本消息-" + new DateTime().toString("yyyy-DD-mm HH:mm:ss"));
             }
-        });*/
+        });
+    }
+
+    @Test
+    public void addDelayMessage() throws InterruptedException {
+        for (int i = 0; i < 100; i++) {
+            String dateTime = new DateTime().toString("yyyy-DD-mm HH:mm:ss");
+
+            Object message = "消息-" + dateTime;
+            jmsTemplate.convertAndSend(testQueue, message, new ScheduleMessagePostProcessor(10L * 1000));//延时10秒
+            TimeUnit.SECONDS.sleep(1);
+        }
+
     }
 }

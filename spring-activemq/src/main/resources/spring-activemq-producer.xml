@@ -26,14 +26,5 @@
         <constructor-arg name="name" value="testQueue"/>
     </bean>
 
-    <!-- 消息监听器 -->
-    <bean id="testMessageListener" class="com.nextyu.study.activemq.TestMessageListener"/>
-    <!-- 消息监听容器 -->
-    <bean id="jmsContainer"
-          class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-        <property name="connectionFactory" ref="connectionFactory"/>
-        <property name="destination" ref="testQueue"/>
-        <property name="messageListener" ref="testMessageListener"/>
-    </bean>
 
 </beans>
