@@ -1,5 +1,6 @@
-package com.nextyu.study.activemq;
+package com.nextyu.study.activemq.producer;
 
+import com.nextyu.study.activemq.ScheduleMessagePostProcessor;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring-activemq-producer.xml")
-public class MessageProducer {
+public class TextMessageProducer {
     @Autowired
     private JmsTemplate jmsTemplate;
 

@@ -1,4 +1,4 @@
-package com.nextyu.study.activemq;
+package com.nextyu.study.activemq.listener;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import javax.jms.*;
  *
  * @author nextyu
  */
-public class TestMessageListener2 implements MessageListener {
+public class TextMessageListener2 implements MessageListener {
 
     @Autowired
     private JmsTemplate jmsTemplate;
