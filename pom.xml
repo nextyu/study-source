@@ -17,6 +17,7 @@
         <module>webmagic</module>
         <module>java-reflection</module>
         <module>spring-activemq</module>
+        <module>json-web-tokens</module>
     </modules>
     <packaging>pom</packaging>
 
