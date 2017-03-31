@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-redis</artifactId>
+    <artifactId>spring-activemq</artifactId>
     <packaging>jar</packaging>
 
-    <name>spring-redis</name>
+    <name>spring-activemq</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -45,21 +45,24 @@
             <artifactId>spring-context-support</artifactId>
         </dependency>
 
-        <!-- spring redis -->
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
         </dependency>
 
-        <!-- redis client -->
         <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
         </dependency>
 
         <dependency>

@@ -73,6 +73,8 @@ public class MyTest {
             @Override
             public Object doInRedis(RedisConnection connection) throws DataAccessException {
                 Long dbSize = connection.dbSize();
+
+
                 System.out.println(dbSize);
                 // Can cast to StringRedisConnection if using a StringRedisTemplate
                 return null;
