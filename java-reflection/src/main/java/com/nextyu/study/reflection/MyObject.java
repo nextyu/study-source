@@ -6,9 +6,11 @@ package com.nextyu.study.reflection;
  * @author nextyu
  */
 @MyAnnotation(name = "小灰灰", value = "喜洋洋")
-public class MyObject {
+public class MyObject implements MyInterface {
     private String name;
     private Integer age;
+
+    public String address;
 
     public MyObject() {
     }
