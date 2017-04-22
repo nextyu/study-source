@@ -93,16 +93,27 @@ public class ReflectionTest {
     public void testConstructor() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<MyObject> aClass = MyObject.class;
 
-        // 全部的构造器
+        // 全部的构造方法
         Constructor<?>[] constructors = aClass.getConstructors();
+        for (Constructor<?> constructor : constructors) {
+            logger.debug("构造方法 {}", constructor);
+        }
 
-        // 指定参数的构造器
+
+        // 指定参数的构造方法
+        // getConstructor方法传入的参数为Class类型的对象,代表的是参数类型
+//      // 想获得上面的带一个String参数的构造方法,就需要传入String的Class对象
         Constructor<MyObject> constructor = aClass.getConstructor(String.class);
+        logger.debug("指定参数的构造方法 {}", constructor);
 
         // 构造方法参数
         Class<?>[] parameterTypes = constructor.getParameterTypes();
+        for (Class<?> parameterType : parameterTypes) {
+            logger.debug("构造方法参数 {}", parameterType);
+        }
 
         // 利用Constructor对象实例化一个类
+        // 刚才我们获取的是只带一个String参数的构造方法,所以实例化对象,只需传入一个String参数即可
         MyObject myObject = constructor.newInstance("小明");
         logger.debug("{}", myObject);
 
