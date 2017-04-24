@@ -122,19 +122,30 @@ public class ReflectionTest {
     @Test
     public void testField() throws NoSuchFieldException, IllegalAccessException, InstantiationException {
         Class<MyObject> aClass = MyObject.class;
-        // 声明为公有的(public)的所有变量集合
+        // 获取成员变量（只能获取public的）
         Field[] fields = aClass.getFields();
-
-        Field[] declaredFields = aClass.getDeclaredFields();
-        for (Field declaredField : declaredFields) {
-            logger.debug("成员变量名称 {}", declaredField.getName());
+        for (Field field : fields) {
+            logger.debug("public成员变量 {}", field);
         }
 
-        MyObject myObject = aClass.newInstance();
-        Field name = aClass.getDeclaredField("name");
-        name.setAccessible(true);
-        name.set(myObject, "小黑");
+        // 获取所有的成员变量（包括private的）
+        Field[] declaredFields = aClass.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            logger.debug("所有的成员变量 {}", declaredField);
+        }
 
+        // 成员变量赋值
+        // 实例化一个对象
+        MyObject myObject = aClass.newInstance();
+        // 根据名称获取某个成员变量
+        Field name = aClass.getDeclaredField("name");
+
+        // 因为name成员变量为private，所以必须设置可访问为true，不然直接赋值会报IllegalAccessException
+        name.setAccessible(true);
+
+        // set方法需要两个参数，第一个为某个对象，第二个为需要设置的值
+        // 下面的方法可理解为：将上面实例化的对象myObject-->的成员变量name-->赋值为小黑
+        name.set(myObject, "小黑");
         logger.debug("{}", myObject);
 
     }
