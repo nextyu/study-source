@@ -21,6 +21,11 @@ public class ReflectionTest {
 
     private static final Logger logger = LoggerFactory.getLogger(ReflectionTest.class);
 
+    /**
+     * 获取类的基本信息
+     *
+     * @throws ClassNotFoundException
+     */
     @Test
     public void testClass() throws ClassNotFoundException {
 
@@ -89,6 +94,14 @@ public class ReflectionTest {
         }
     }
 
+    /**
+     * 构造方法
+     *
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     */
     @Test
     public void testConstructor() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<MyObject> aClass = MyObject.class;
@@ -119,6 +132,13 @@ public class ReflectionTest {
 
     }
 
+    /**
+     * 成员变量
+     *
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
     @Test
     public void testField() throws NoSuchFieldException, IllegalAccessException, InstantiationException {
         Class<MyObject> aClass = MyObject.class;
@@ -150,6 +170,14 @@ public class ReflectionTest {
 
     }
 
+    /**
+     * 方法
+     *
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws InvocationTargetException
+     */
     @Test
     public void testMethod() throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
         Class<MyObject> aClass = MyObject.class;
