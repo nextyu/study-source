@@ -153,23 +153,52 @@ public class ReflectionTest {
     @Test
     public void testMethod() throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
         Class<MyObject> aClass = MyObject.class;
-        // 所有public方法
+        // 获取方法，包括父类的（只能获取public的）
         Method[] methods = aClass.getMethods();
+        for (Method method : methods) {
+            logger.debug("public方法 {}", method);
+        }
 
+        logger.debug("------------------------------------------------------------------------------------");
+
+        // 获取所有的方法（包括public, protected, default (package) access, 以及 private 的）,但是不包括父类的
+        methods = aClass.getDeclaredMethods();
+        for (Method method : methods) {
+            logger.debug("所有的方法 {}", method);
+        }
+
+
+        // 获取指定的public方法，第一个参数为方法名称，第二个参数为该方法的参数的Class对象
+        // 获取setName(String name)方法
         Method setNameMethod = aClass.getMethod("setName", String.class);
+        logger.debug("setNameMethod {}", setNameMethod);
 
-        // 方法参数
+        // 获取方法参数
         Class<?>[] parameterTypes = setNameMethod.getParameterTypes();
+        for (Class<?> parameterType : parameterTypes) {
+            logger.debug("setNameMethod方法参数 {}", parameterType);
+        }
 
-        // 返回类型
+        // 获取返回类型
         Class<?> returnType = setNameMethod.getReturnType();
+        logger.debug("setNameMethod返回类型 {}", returnType);
 
+        // 实例化一个对象
         MyObject myObject = aClass.newInstance();
 
-        Object result = setNameMethod.invoke(myObject, "小花");
+        // 调用方法，第一个为某个对象，第二个为需要设置的值，返回值为当前方法的返回值
+        // 下面的方法可理解为：调用上面实例化的对象myObject-->的setName方法-->传入的参数为“小花”
+        Object setNameMethodResult = setNameMethod.invoke(myObject, "小花");
 
-        logger.debug("{}", myObject);
-        logger.debug("{}", result);
+        logger.debug("myObject {}", myObject);
+        // 因为setName方法没有返回值，所以setNameMethodResult为null
+        logger.debug("setNameMethodResult {}", setNameMethodResult);
+
+
+        Method getNameMethod = aClass.getMethod("getName");
+        Object getNameMethodResult = getNameMethod.invoke(myObject);
+        // getName的方法的返回值为刚才通过setName方法设置的“小花”
+        logger.debug("getNameMethodResult {}", getNameMethodResult);
 
     }
 
