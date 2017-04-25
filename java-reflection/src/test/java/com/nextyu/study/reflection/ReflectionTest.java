@@ -142,13 +142,13 @@ public class ReflectionTest {
     @Test
     public void testField() throws NoSuchFieldException, IllegalAccessException, InstantiationException {
         Class<MyObject> aClass = MyObject.class;
-        // 获取成员变量（只能获取public的）
+        // 获取成员变量（只能获取public的）,包括继承来的
         Field[] fields = aClass.getFields();
         for (Field field : fields) {
             logger.debug("public成员变量 {}", field);
         }
 
-        // 获取所有的成员变量（包括private的）
+        // 获取所有的成员变量（包括public, protected, default (package) access, 以及 private 的）,但是不包括继承来的
         Field[] declaredFields = aClass.getDeclaredFields();
         for (Field declaredField : declaredFields) {
             logger.debug("所有的成员变量 {}", declaredField);
@@ -181,7 +181,7 @@ public class ReflectionTest {
     @Test
     public void testMethod() throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
         Class<MyObject> aClass = MyObject.class;
-        // 获取方法，包括父类的（只能获取public的）
+        // 获取方法（只能获取public的），包括继承来的
         Method[] methods = aClass.getMethods();
         for (Method method : methods) {
             logger.debug("public方法 {}", method);
@@ -189,7 +189,7 @@ public class ReflectionTest {
 
         logger.debug("------------------------------------------------------------------------------------");
 
-        // 获取所有的方法（包括public, protected, default (package) access, 以及 private 的）,但是不包括父类的
+        // 获取所有的方法（包括public, protected, default (package) access, 以及 private 的）,但是不包括继承来的
         methods = aClass.getDeclaredMethods();
         for (Method method : methods) {
             logger.debug("所有的方法 {}", method);
@@ -214,11 +214,12 @@ public class ReflectionTest {
         // 实例化一个对象
         MyObject myObject = aClass.newInstance();
 
-        // 调用方法，第一个为某个对象，第二个为需要设置的值，返回值为当前方法的返回值
+        // 调用方法，第一个参数为某个对象，第二个参数为需要设置的值，返回值为当前方法的返回值
         // 下面的方法可理解为：调用上面实例化的对象myObject-->的setName方法-->传入的参数为“小花”
         Object setNameMethodResult = setNameMethod.invoke(myObject, "小花");
 
         logger.debug("myObject {}", myObject);
+
         // 因为setName方法没有返回值，所以setNameMethodResult为null
         logger.debug("setNameMethodResult {}", setNameMethodResult);
 
