@@ -269,14 +269,19 @@ public class ReflectionTest {
     }
 
 
+    /**
+     * 获取类上的注解
+     */
     @Test
-    public void testAnnotation() {
+    public void testClassAnnotation() {
         Class<MyObject> aClass = MyObject.class;
+        // 获取所有的注解
         Annotation[] annotations = aClass.getAnnotations();
         for (Annotation annotation : annotations) {
             System.out.println(annotation);
         }
 
+        // 获取指定的注解
         MyAnnotation myAnnotation = aClass.getAnnotation(MyAnnotation.class);
         String name = myAnnotation.name();
         String value = myAnnotation.value();
