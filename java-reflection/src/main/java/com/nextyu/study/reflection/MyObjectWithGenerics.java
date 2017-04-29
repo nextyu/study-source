@@ -8,12 +8,25 @@ import java.util.List;
  * @author nextyu
  */
 public class MyObjectWithGenerics {
+    /**
+     * 泛型成员变量
+     */
     public List<String> stringList;
 
+    /**
+     * 泛型方法返回值
+     *
+     * @return
+     */
     public List<String> getStringList() {
         return stringList;
     }
 
+    /**
+     * 泛型方法参数
+     *
+     * @param stringList
+     */
     public void setStringList(List<String> stringList) {
         this.stringList = stringList;
     }
