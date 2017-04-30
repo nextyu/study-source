@@ -62,6 +62,7 @@ public class MyHandler implements InvocationHandler {
                 }
             }
 
+            // 调用目标对象的方法
             result = method.invoke(targetObject, args);
             System.out.println("执行结果：" + result);
             if (result instanceof User) {
