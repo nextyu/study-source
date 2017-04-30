@@ -18,16 +18,28 @@ public class MyHandler implements InvocationHandler {
      */
     private Object targetObject;
 
+    /**
+     * 返回代理对象
+     *
+     * @param targetObject 目标对象(被代理的对象)
+     * @return 代理对象
+     */
     public Object newInstance(Object targetObject) {
         this.targetObject = targetObject;
         Class<?> targetObjectClass = targetObject.getClass();
         // 返回代理对象
+        // newProxyInstance()方法有三个参数
+        // 1. 类加载器（ClassLoader）,用来加载动态代理类
+        // 2. 一个需要实现的接口的数组
+        // 3. 一个InvocationHandler,把所有方法的调用都转到当前指定的InvocationHandler上
         return Proxy.newProxyInstance(targetObjectClass.getClassLoader(), targetObjectClass.getInterfaces(), this);
     }
 
 
     /**
-     * @param proxy
+     * 调用代理对象的任何方法都会转到这个方法上面
+     *
+     * @param proxy  代理对象
      * @param method 目标方法
      * @param args   目标方法的参数
      * @return 目标方法执行结果
@@ -35,6 +47,7 @@ public class MyHandler implements InvocationHandler {
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+
 
         System.out.println("调用的方法：" + method.getName());
 
