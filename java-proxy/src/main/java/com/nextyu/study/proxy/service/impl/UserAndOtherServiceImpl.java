@@ -17,7 +17,7 @@ public class UserAndOtherServiceImpl implements UserService, OtherService {
 
     @Override
     public User addUser(User user) {
-        System.out.println("addUser invoke");
+        System.out.println("UserService addUser invoke");
         return user;
     }
 

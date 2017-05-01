@@ -22,7 +22,7 @@ public class UserServiceImplProxy implements UserService {
         System.out.println("begin addUser");
         userService.addUser(new User());
         System.out.println("end addUser");
-        return null;
+        return user;
     }
 
     @Override
