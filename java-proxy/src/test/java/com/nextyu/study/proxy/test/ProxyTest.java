@@ -11,6 +11,7 @@ import com.nextyu.study.proxy.service.OtherService;
 import com.nextyu.study.proxy.service.UserService;
 import com.nextyu.study.proxy.service.impl.UserAndOtherServiceImpl;
 import com.nextyu.study.proxy.service.impl.UserServiceImpl;
+import net.sf.cglib.core.DebuggingClassWriter;
 import net.sf.cglib.proxy.Enhancer;
 import org.junit.Test;
 import sun.misc.ProxyGenerator;
@@ -119,6 +120,7 @@ public class ProxyTest {
      */
     @Test
     public void testCglibDynamicProxy() {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "F:\\");
         Enhancer enhancer = new Enhancer();
 
         // 设置被代理的类（目标类）

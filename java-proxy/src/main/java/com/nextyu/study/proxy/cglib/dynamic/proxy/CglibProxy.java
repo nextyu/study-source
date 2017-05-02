@@ -12,6 +12,15 @@ import java.lang.reflect.Method;
  */
 public class CglibProxy implements MethodInterceptor {
 
+    /**
+     *
+     * @param o 被增强了的对象（代理对象）
+     * @param method 被拦截的方法
+     * @param objects 参数
+     * @param methodProxy
+     * @return
+     * @throws Throwable
+     */
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
         System.out.println("调用的方法：" + method.getName());
@@ -26,7 +35,7 @@ public class CglibProxy implements MethodInterceptor {
                     System.out.println(arg);
                 }
             }
-
+            // Note: 此处一定要使用methodProxy的invokeSuper方法来调用目标类的方法
             result = methodProxy.invokeSuper(o, objects);
             System.out.println("执行结果：" + result);
 
