@@ -1,5 +1,13 @@
 package com.nextyu.study.httpclient;
 
+import com.google.gson.Gson;
+import com.qiniu.common.QiniuException;
+import com.qiniu.common.Zone;
+import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
+import com.qiniu.util.Auth;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -20,7 +28,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +45,7 @@ import java.util.List;
  */
 public class HttpClientTest {
 
-    private String requestURL = "";
+    private String requestURL = "http://mantao.lovelytao.com/saber/index/detailData?itemId=556263139450&activityId=28a9f51fe9894b478e0fb87380e8a7cb&refId=";
 
     /**
      * GET请求.
@@ -50,6 +63,8 @@ public class HttpClientTest {
 
         // 获得相应实体
         HttpEntity entity = httpResponse.getEntity();
+
+        System.out.println(entity.getContent());
 
         String result = EntityUtils.toString(entity);
 
@@ -71,9 +86,11 @@ public class HttpClientTest {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(requestURL);
 
+        httpPost.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36");
+
         // 参数，就像表单提交那样
         List<NameValuePair> nameValuePairList = new ArrayList<>();
-        nameValuePairList.add(new BasicNameValuePair("name", "value"));
+        nameValuePairList.add(new BasicNameValuePair("wp", "eyJwYWdlIjoxNSwic29ydCI6MSwiY2lkIjpudWxsLCJzZWFyY2giOiJcdTg4ZTRcdTViNTAiLCJ0eXBlIjpudWxsfQ=="));
 
         // 设置 POST 参数
         httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairList));
@@ -186,6 +203,45 @@ public class HttpClientTest {
         post.setEntity(entity);
         HttpResponse response = client.execute(post);
         String result = EntityUtils.toString(response.getEntity());
+    }
+
+    @Test
+    public void testUrl() throws Exception {
+        InputStream input = new URL("http://oss.lanlanlife.com/2b8cb4446f21b70700f4a6b42abccc13_800x800.jpg").openStream();
+
+        //构造一个带指定Zone对象的配置类
+        Configuration cfg = new Configuration(Zone.zone2());
+//...其他参数参考类注释
+        UploadManager uploadManager = new UploadManager(cfg);
+//...生成上传凭证，然后准备上传
+        String accessKey = "OAD7ZYR04na_PMfifO58QunEur8AYefyTIedPS5y";
+        String secretKey = "aiEgTAoXtpc2i61fkjKKfIz7iSFFCHOPhrIykfJx";
+        String bucket = "mall";
+//默认不指定key的情况下，以文件内容的hash值作为文件名
+        String key = null;
+        try {
+
+            Auth auth = Auth.create(accessKey, secretKey);
+            String upToken = auth.uploadToken(bucket);
+            try {
+                Response response = uploadManager.put(input,key,upToken,null, null);
+                //解析上传成功的结果
+                DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+                System.out.println(putRet.key);
+                System.out.println(putRet.hash);
+            } catch (QiniuException ex) {
+                Response r = ex.response;
+                System.err.println(r.toString());
+                try {
+                    System.err.println(r.bodyString());
+                } catch (QiniuException ex2) {
+                    //ignore
+                }
+            }
+        } catch (Exception ex) {
+            //ignore
+        }
+
     }
 
 }

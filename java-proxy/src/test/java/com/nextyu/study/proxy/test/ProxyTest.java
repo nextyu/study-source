@@ -139,11 +139,11 @@ public class ProxyTest {
 
     /**
      * 创建10000个代理对象，jdk动态代理和cglib动态代理耗时测试.
-     * jdk动态代理效率更高.
+     * cglib动态代理效率更高.
      */
     @Test
     public void testJDKDynamicProxyCapability() {
-        int num = 1000;
+        int num = 10000;
         long start = System.currentTimeMillis();
         for (int i = 0; i < num; i++) {
             UserService userService = (UserService) new MyHandler().newInstance(new UserServiceImpl());
@@ -156,14 +156,14 @@ public class ProxyTest {
 
     /**
      * 创建10000个代理对象，jdk动态代理和cglib动态代理耗时测试.
-     * jdk动态代理效率更高.
+     * cglib动态代理效率更高.
      */
     @Test
     public void testCglibDynamicProxyCapability() {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(UserServiceImpl.class);
         enhancer.setCallback(new CglibProxy());
-        int num = 1000;
+        int num = 10000;
         long start = System.currentTimeMillis();
         for (int i = 0; i < num; i++) {
             UserServiceImpl userService = (UserServiceImpl) enhancer.create();
