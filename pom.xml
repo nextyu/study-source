@@ -18,6 +18,7 @@
         <module>java-reflection</module>
         <module>spring-activemq</module>
         <module>json-web-tokens</module>
+        <module>regular-expression</module>
     </modules>
     <packaging>pom</packaging>
 
