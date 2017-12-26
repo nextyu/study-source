@@ -250,6 +250,9 @@ public class Test1 {
         // Files.exists()
         Path path = Paths.get("data/logging.properties");
 
+
+
+
         boolean pathExists =
                 Files.exists(path,
                         LinkOption.NOFOLLOW_LINKS);

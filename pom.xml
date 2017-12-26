@@ -76,7 +76,7 @@
 
         <!-- google start-->
         <closure.compiler.version>v20150609</closure.compiler.version>
-        <guava.version>18.0</guava.version>
+        <guava.version>22.0</guava.version>
         <findbugs.version>3.0.0</findbugs.version>
         <zxing.version>3.2.1</zxing.version>
         <!-- google end-->
